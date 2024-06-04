@@ -1,29 +1,26 @@
 package com.hamburg.spring.controller;
 
-import com.hamburg.spring.repository.Vehicle;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.hamburg.spring.service.FormatterService;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class HelloController {
-    // bean nedir
-    // anotasiya nedir
-    // injwction nedir
-    // application contewxt nedir
-    //qulaifeirs
-    // primary
+    //1 Lazy anotasiyasi
 
-    private final Vehicle vehicle;
+    private final FormatterService formatterService;
 
-    public HelloController( @Qualifier("pashapay") Vehicle vehicle) {
-        this.vehicle = vehicle;
+    public HelloController(FormatterService formatterService) {
+        this.formatterService = formatterService;
     }
 
-    @GetMapping("/drive")
-    public String getDrive(@RequestBody String type) {
-        return vehicle.drive();
+    @GetMapping("/hello")
+    public String getHelloWorld() {
+        return formatterService.sayHello();
     }
+
 
 }

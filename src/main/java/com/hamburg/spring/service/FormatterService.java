@@ -1,18 +1,23 @@
 package com.hamburg.spring.service;
-
-import com.hamburg.spring.repository.Formatter;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FormatterService {
-    private final Formatter formatter;
 
 
-    public FormatterService(Formatter formatter) {
-        this.formatter = formatter;
+    @PostConstruct
+   public void init() {
+    System.out.println("MyBean is going through init.");
+     }
+
+    @PreDestroy
+    public void destroy() {
+        System.out.println("MyBean will be destroyed.");
     }
 
-    public void printMessage(String message){
-        formatter.format(message);
+    public String sayHello() {
+        return "hello World";
     }
 }
